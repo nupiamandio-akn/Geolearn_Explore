@@ -11,6 +11,7 @@ import {
   Zap,
   ChevronDown
 } from "lucide-react";
+import { ASSETS } from "./constants/images";
 
 export default function App() {
   return (
@@ -37,7 +38,7 @@ export default function App() {
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1444312645910-ffa973656eba?auto=format&fit=crop&q=80&w=2070" 
+            src={ASSETS.HERO_BG} 
             alt="Terra Formations"
             className="w-full h-full object-cover opacity-30"
             referrerPolicy="no-referrer"
@@ -143,7 +144,7 @@ export default function App() {
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-[#d4a017]/20 to-transparent blur-3xl opacity-50" />
             <img 
-              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000" 
+              src={ASSETS.EXPERTO_ENGINEER} 
               alt="Engenheiro Técnico Geológico" 
               className="rounded-3xl relative z-10 hover:grayscale-0 transition-all duration-700 aspect-square object-cover border border-white/10 shadow-2xl"
               referrerPolicy="no-referrer"
@@ -237,7 +238,7 @@ const pillars = [
     title: "Ciências da Terra",
     description: "Estudo detalhado da dinâmica planetária, sismicidade e a evolução geológica global.",
     icon: Globe,
-    image: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800",
+    image: ASSETS.EARTH_SCIENCE,
     features: ["Tectónica de Placas", "Ciclo das Rochas", "Geologia Estrutural"]
   },
   {
@@ -245,7 +246,7 @@ const pillars = [
     title: "Exploração Mineral",
     description: "Técnicas de mineração em larga escala e prospecção de minerais industriais.",
     icon: Pickaxe,
-    image: "https://images.unsplash.com/photo-1576402196414-b81666e13ca4?auto=format&fit=crop&q=80&w=800",
+    image: ASSETS.MINERAL_EXPLORATION,
     features: ["Amostragem de Solo", "Métodos Geofísicos", "Operação de Minas"]
   },
   {
@@ -253,7 +254,7 @@ const pillars = [
     title: "Petróleo & Gás",
     description: "Sistemas complexos de extração offshore e geologia de reservatórios de hidrocarbonetos.",
     icon: Droplets,
-    image: "https://images.unsplash.com/photo-1516192535974-1378564f28c6?auto=format&fit=crop&q=80&w=800",
+    image: ASSETS.OIL_AND_GAS,
     features: ["Geologia de Reservatório", "Perfuração Offshore", "Refino Comercial"]
   }
 ];

@@ -1,0 +1,1 @@
+Substitua a imagem nesta pasta por um arquivo chamado 'hero-bg.jpg' (ou mude a extensão no código) para alterar o fundo principal do site.

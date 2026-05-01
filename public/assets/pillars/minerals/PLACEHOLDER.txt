@@ -1,0 +1,1 @@
+Substitua a imagem nesta pasta por um arquivo chamado 'minerals.jpg' para alterar a imagem de Exploração Mineral (Mina).
