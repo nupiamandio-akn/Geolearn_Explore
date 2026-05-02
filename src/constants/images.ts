@@ -14,11 +14,13 @@ export const ASSETS = {
   EARTH_SCIENCE: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800",
   
   // Para substituir: Coloque um arquivo 'minerals.jpg' na pasta /public/assets/pillars/minerals/
-  MINERAL_EXPLORATION: "https://images.unsplash.com/photo-1590487988256-9ed24133863e?auto=format&fit=crop&q=80&w=800",
+  MINERAL_EXPLORATION: "/src/assets/images/regenerated_image_1777712827308.png",
   
   // Para substituir: Coloque um arquivo 'energy.jpg' na pasta /public/assets/pillars/energy/
-  OIL_AND_GAS: "https://images.unsplash.com/photo-1529323531602-0c9f13e75344?auto=format&fit=crop&q=80&w=800",
+  OIL_AND_GAS: "/src/assets/images/regenerated_image_1777712829726.png",
   
   // Para substituir: Coloque um arquivo 'engineer.jpg' na pasta /public/assets/engineer/
-  EXPERTO_ENGINEER: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000"
+  EXPERTO_ENGINEER: "/src/assets/images/regenerated_image_1777713047590.png",
+  
+  GEOENERGY: "https://images.unsplash.com/photo-1510797277156-e31ff5991d1b?auto=format&fit=crop&q=80&w=2070"
 };
