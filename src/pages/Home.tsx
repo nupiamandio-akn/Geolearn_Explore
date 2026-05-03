@@ -41,7 +41,7 @@ export default function Home() {
               <Zap className="w-3 h-3" /> Processo Físico de Mineração e Produção de Petróleo e Gás
             </div>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 text-white">
-              DOMINADO AS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4a017] to-orange-400">GEOCIÊNCIAS</span> DO FUTURO.
+              DOMINANDO AS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4a017] to-orange-400">GEOCIÊNCIAS</span> DO FUTURO.
             </h1>
             <p className="text-lg md:text-xl text-white/60 max-w-xl leading-relaxed mb-10">
               Somos uma consultoria técnica especializada. Explore o ciclo da terra, técnicas avançadas de mineração e a complexidade do setor de energia com nossos experts.

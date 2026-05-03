@@ -1,9 +1,14 @@
-import { motion } from "motion/react";
-import { Pickaxe, Search, Map as MapIcon, ArrowLeft, Triangle } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Pickaxe, Search, Map as MapIcon, ArrowLeft, Triangle, Gem, Box, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ASSETS } from "../constants/images";
+import DiamondMap from "../components/DiamondMap";
+import GeologicalSimulation from "../components/GeologicalSimulation";
 
 export default function Minerais() {
+  const [viewMode, setViewMode] = useState<"2d" | "3d">("2d");
+
   return (
     <div className="pt-20 min-h-screen">
       <section className="relative h-[60vh] flex items-center overflow-hidden">
@@ -72,7 +77,7 @@ export default function Minerais() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
               <div className="h-64 bg-white/5 rounded-3xl overflow-hidden border border-white/10">
-                <img src="https://images.unsplash.com/photo-1552317184-406b744d0397?q=80&w=400" className="w-full h-full object-cover" alt="Mining 1" />
+                <img src={ASSETS.MINING_SITE_1} className="w-full h-full object-cover" alt="Mining 1" />
               </div>
               <div className="h-48 bg-[#d4a017] rounded-3xl p-8 flex flex-col justify-end">
                 <div className="text-4xl font-bold text-[#0f0f0f] mb-1">92%</div>
@@ -85,12 +90,77 @@ export default function Minerais() {
                 <p className="text-white/40 text-[10px] leading-relaxed uppercase tracking-widest">Compromisso com a recuperação ambiental de áreas mineradas.</p>
               </div>
               <div className="h-64 bg-white/5 rounded-3xl overflow-hidden border border-white/10">
-                <img src="https://images.unsplash.com/photo-1576402196414-b81666e13ca4?q=80&w=400" className="w-full h-full object-cover" alt="Mining 2" />
+                <img src={ASSETS.MINING_SITE_2} className="w-full h-full object-cover" alt="Mining 2" />
               </div>
             </div>
           </div>
         </div>
       </motion.section>
+
+
+
+      {/* Unified Exploration Hub */}
+      <section className="py-24 border-y border-white/5 bg-white/[0.01]">
+        <div className="max-w-[1600px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#d4a017]/30 bg-[#d4a017]/5 text-[#d4a017] text-[10px] font-bold uppercase tracking-widest mb-4">
+                <Gem className="w-3 h-3" /> Inteligência Geoespacial & 3D
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6">
+                HUB DE <span className="text-[#d4a017]">EXPLORAÇÃO</span>.
+              </h2>
+              <p className="text-white/60 leading-relaxed text-lg">
+                Selecione a visualização desejada para análise de dados. Alterne entre o mapeamento global de jazidas ou a simulação técnica de formações geológicas.
+              </p>
+            </div>
+            
+            <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/10">
+               <button 
+                onClick={() => setViewMode("2d")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "2d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Globe className="w-4 h-4" /> Vista 2D
+               </button>
+               <button 
+                onClick={() => setViewMode("3d")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "3d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Box className="w-4 h-4" /> Simulação 3D
+               </button>
+            </div>
+          </div>
+          
+          <div className="h-[750px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl relative bg-[#0f0f0f]">
+             <AnimatePresence mode="wait">
+               {viewMode === "2d" ? (
+                 <motion.div 
+                   key="2d-map"
+                   initial={{ opacity: 0, scale: 0.98 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 1.02 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <DiamondMap />
+                 </motion.div>
+               ) : (
+                 <motion.div 
+                   key="3d-sim"
+                   initial={{ opacity: 0, scale: 1.02 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 0.98 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <GeologicalSimulation />
+                 </motion.div>
+               )}
+             </AnimatePresence>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+

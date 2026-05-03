@@ -8,7 +8,7 @@
 
 export const ASSETS = {
   // Para substituir: Coloque um arquivo 'hero-bg.jpg' na pasta /public/assets/hero/
-  HERO_BG: "https://images.unsplash.com/photo-1444312645910-ffa973656eba?auto=format&fit=crop&q=80&w=2070",
+  HERO_BG: "/src/assets/images/regenerated_image_1777723308742.png",
   
   // Para substituir: Coloque um arquivo 'earth.jpg' na pasta /public/assets/pillars/earth/
   EARTH_SCIENCE: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800",
@@ -22,5 +22,8 @@ export const ASSETS = {
   // Para substituir: Coloque um arquivo 'engineer.jpg' na pasta /public/assets/engineer/
   EXPERTO_ENGINEER: "/src/assets/images/regenerated_image_1777713047590.png",
   
-  GEOENERGY: "https://images.unsplash.com/photo-1510797277156-e31ff5991d1b?auto=format&fit=crop&q=80&w=2070"
+  GEOENERGY: "https://images.unsplash.com/photo-1510797277156-e31ff5991d1b?auto=format&fit=crop&q=80&w=2070",
+  
+  MINING_SITE_1: "/src/assets/images/regenerated_image_1777791906186.png",
+  MINING_SITE_2: "/src/assets/images/regenerated_image_1777791910007.png"
 };

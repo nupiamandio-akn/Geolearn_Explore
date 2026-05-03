@@ -1,21 +1,21 @@
-import { motion } from "motion/react";
-import { Droplets, Zap, Shield, ArrowLeft, BarChart3, Globe } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Droplets, Zap, Shield, ArrowLeft, BarChart3, Globe, Box, Waves } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ASSETS } from "../constants/images";
 import InteractiveMap from "../components/InteractiveMap";
+import GeologicalSimulation from "../components/GeologicalSimulation";
+import OilExtractionSimulation from "../components/OilExtractionSimulation";
 
 export default function Energia() {
+  const [viewMode, setViewMode] = useState<"2d" | "3d" | "extraction">("2d");
+
   return (
     <div className="pt-20 min-h-screen">
-      <section className="relative h-[60vh] flex items-center overflow-hidden">
+      <section className="relative h-[80vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={ASSETS.GEOENERGY} 
-            className="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
-            alt="Geoenergy"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/40 to-transparent" />
+          <OilExtractionSimulation />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
         </div>
         
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
@@ -66,19 +66,82 @@ export default function Energia() {
            ))}
         </div>
 
-        <motion.div
-           id="mapa-exploracao"
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mb-24"
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <Globe className="w-8 h-8 text-[#d4a017]" />
-            <h2 className="text-3xl font-bold text-white tracking-tight">Geopolítica da Exploração</h2>
+        {/* Integrated Energy Grid Hub */}
+        <section className="mb-24 px-4 overflow-hidden">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#d4a017]/30 bg-[#d4a017]/5 text-[#d4a017] text-[10px] font-bold uppercase tracking-widest mb-4">
+                <Zap className="w-3 h-3" /> Monitoramento Energético Global
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6">
+                CONTROLE DE <span className="text-[#d4a017]">RECURSOS</span>.
+              </h2>
+              <p className="text-white/60 leading-relaxed text-lg">
+                Visualize a infraestrutura global de hidrocarbonetos ou mergulhe na simulação técnica de reservatórios. Ferramentas integradas para análise de risco e potencial de produção.
+              </p>
+            </div>
+            
+            <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/10">
+               <button 
+                onClick={() => setViewMode("2d")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "2d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Globe className="w-4 h-4" /> Mapa de Bacias
+               </button>
+               <button 
+                onClick={() => setViewMode("3d")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "3d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Box className="w-4 h-4" /> Gêmeo Digital
+               </button>
+               <button 
+                onClick={() => setViewMode("extraction")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "extraction" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Waves className="w-4 h-4" /> Extração
+               </button>
+            </div>
           </div>
-          <InteractiveMap />
-        </motion.div>
+          
+          <div className="h-[750px] rounded-[40px] overflow-hidden border border-white/10 shadow-2xl relative bg-[#0f0f0f]">
+             <AnimatePresence mode="wait">
+               {viewMode === "2d" ? (
+                 <motion.div 
+                   key="2d-map-energy"
+                   initial={{ opacity: 0, scale: 0.98 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 1.02 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <InteractiveMap />
+                 </motion.div>
+               ) : viewMode === "3d" ? (
+                 <motion.div 
+                   key="3d-sim-energy"
+                   initial={{ opacity: 0, scale: 1.02 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 0.98 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <GeologicalSimulation />
+                 </motion.div>
+               ) : (
+                 <motion.div 
+                   key="extraction-sim-energy"
+                   initial={{ opacity: 0, y: 50 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   exit={{ opacity: 0, y: -50 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <OilExtractionSimulation />
+                 </motion.div>
+               )}
+             </AnimatePresence>
+          </div>
+        </section>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}

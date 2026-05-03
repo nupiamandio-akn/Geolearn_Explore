@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -18,6 +19,19 @@ function ScrollToTop() {
   return null;
 }
 
+const PageTransition = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 export default function App() {
   return (
     <Router>
@@ -26,18 +40,27 @@ export default function App() {
         <Navigation />
         
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ciencias" element={<Ciencias />} />
-            <Route path="/minerais" element={<Minerais />} />
-            <Route path="/energia" element={<Energia />} />
-            <Route path="/comecar" element={<Start />} />
-            <Route path="/sobre" element={<About />} />
-          </Routes>
+          <RoutesWithTransition />
         </main>
 
         <Footer />
       </div>
     </Router>
+  );
+}
+
+function RoutesWithTransition() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/ciencias" element={<PageTransition><Ciencias /></PageTransition>} />
+        <Route path="/minerais" element={<PageTransition><Minerais /></PageTransition>} />
+        <Route path="/energia" element={<PageTransition><Energia /></PageTransition>} />
+        <Route path="/comecar" element={<PageTransition><Start /></PageTransition>} />
+        <Route path="/sobre" element={<PageTransition><About /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
   );
 }
