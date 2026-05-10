@@ -1,4 +1,4 @@
-import { Globe } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="col-span-1 md:col-span-2">
           <div className="flex items-center gap-2 mb-8">
-            <Globe className="text-[#d4a017] w-6 h-6" />
+            <Logo className="w-6 h-6" />
             <span className="text-lg font-bold tracking-tighter uppercase text-white">GeoEnergy Explorer</span>
           </div>
           <p className="text-white/40 max-w-sm mb-8">

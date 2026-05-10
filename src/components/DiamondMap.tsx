@@ -74,22 +74,53 @@ const countryReports: Record<string, any> = {
 export default function DiamondMap() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const countryMines = diamondMines.filter(mine => mine.country === selectedCountry);
+  const filteredMines = searchQuery.trim() === "" 
+    ? diamondMines 
+    : diamondMines.filter(mine => 
+        mine.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        mine.country.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+  const countryMines = filteredMines.filter(mine => mine.country === selectedCountry);
   const report = selectedCountry ? countryReports[selectedCountry] : null;
 
   return (
     <div className="w-full h-full bg-[#0f0f0f] flex flex-col relative">
-      <div className="p-8 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center bg-white/[0.02] gap-4 shrink-0">
+      <div className="p-8 border-b border-white/5 flex flex-col lg:flex-row justify-between items-start lg:items-center bg-white/[0.02] gap-6 shrink-0">
         <div>
           <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">Mapa Global de Exploração de Diamantes</h3>
           <p className="text-[#d4a017]/60 text-xs uppercase tracking-widest font-bold">Distribuição Mundial de Jazidas Kimberlíticas</p>
         </div>
-        <div className="flex gap-6 bg-black/40 p-3 rounded-2xl border border-white/5">
-           <div className="flex items-center gap-2">
-             <div className="w-3 h-3 rounded-full bg-[#d4a017]" />
-             <span className="text-[10px] uppercase font-bold text-white/80 tracking-wider">Mina de Diamante</span>
-           </div>
+
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full lg:w-auto">
+          {/* Search Bar */}
+          <div className="relative group w-full md:w-80">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 group-focus-within:text-[#d4a017] transition-colors" />
+            <input
+              type="text"
+              placeholder="Buscar por mina ou país..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-white/5 border border-white/10 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#d4a017]/50 focus:bg-white/[0.08] transition-all w-full"
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex gap-6 bg-black/40 p-3 rounded-2xl border border-white/5 shrink-0">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#d4a017]" />
+              <span className="text-[10px] uppercase font-bold text-white/80 tracking-wider">Mina de Diamante</span>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -105,7 +136,7 @@ export default function DiamondMap() {
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  const hasMines = diamondMines.some(mine => mine.country === geo.properties.name);
+                  const hasMines = filteredMines.some(mine => mine.country === geo.properties.name);
                   const isSelected = selectedCountry === geo.properties.name;
                   
                   return (
@@ -133,7 +164,7 @@ export default function DiamondMap() {
                 })
               }
             </Geographies>
-            {diamondMines.map(({ name, coordinates, country }) => {
+            {filteredMines.map(({ name, coordinates, country }) => {
               const isFromSelected = selectedCountry === country;
               return (
                 <Marker key={name} coordinates={coordinates as [number, number]}>

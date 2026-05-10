@@ -149,7 +149,7 @@ export default function Home() {
             <img 
               src={ASSETS.EXPERTO_ENGINEER} 
               alt="Engenheiro Técnico Geológico" 
-              className="rounded-3xl relative z-10 hover:grayscale-0 transition-all duration-700 aspect-square object-cover border border-white/10 shadow-2xl"
+              className="rounded-3xl relative z-10 transition-all duration-700 aspect-square object-cover border border-white/10 shadow-2xl"
               referrerPolicy="no-referrer"
             />
             <div className="absolute bottom-10 -right-10 bg-[#1a1a1a] p-8 rounded-2xl border border-white/10 z-20 hidden md:block shadow-2xl">

@@ -1,21 +1,28 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Droplets, Zap, Shield, ArrowLeft, BarChart3, Globe, Box, Waves } from "lucide-react";
+import { Droplets, Zap, Shield, ArrowLeft, BarChart3, Globe, Waves, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ASSETS } from "../constants/images";
+import regeneratedImage from '../assets/images/regenerated_image_1778444128449.png';
 import InteractiveMap from "../components/InteractiveMap";
-import GeologicalSimulation from "../components/GeologicalSimulation";
 import OilExtractionSimulation from "../components/OilExtractionSimulation";
+import StratigraphySimulation from "../components/StratigraphySimulation";
 
 export default function Energia() {
-  const [viewMode, setViewMode] = useState<"2d" | "3d" | "extraction">("2d");
+  const [viewMode, setViewMode] = useState<"2d" | "extraction" | "stratigraphy">("2d");
 
   return (
     <div className="pt-20 min-h-screen">
       <section className="relative h-[80vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <OilExtractionSimulation />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
+        <div className="absolute inset-0 z-0 overflow-hidden bg-transparent">
+          <img 
+            src={regeneratedImage} 
+            className="absolute inset-0 w-full h-full object-cover" 
+            alt="Fundo Petróleo"
+          />
+          <div className="absolute inset-0 z-10">
+            <OilExtractionSimulation />
+          </div>
         </div>
         
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
@@ -77,7 +84,7 @@ export default function Energia() {
                 CONTROLE DE <span className="text-[#d4a017]">RECURSOS</span>.
               </h2>
               <p className="text-white/60 leading-relaxed text-lg">
-                Visualize a infraestrutura global de hidrocarbonetos ou mergulhe na simulação técnica de reservatórios. Ferramentas integradas para análise de risco e potencial de produção.
+                Visualize a infraestrutura global de hidrocarbonetos ou analise a estratigrafia detalhada do solo. Ferramentas integradas para análise de risco e potencial de produção.
               </p>
             </div>
             
@@ -89,16 +96,16 @@ export default function Energia() {
                  <Globe className="w-4 h-4" /> Mapa de Bacias
                </button>
                <button 
-                onClick={() => setViewMode("3d")}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "3d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
-               >
-                 <Box className="w-4 h-4" /> Gêmeo Digital
-               </button>
-               <button 
                 onClick={() => setViewMode("extraction")}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "extraction" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
                >
                  <Waves className="w-4 h-4" /> Extração
+               </button>
+               <button 
+                onClick={() => setViewMode("stratigraphy")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "stratigraphy" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+               >
+                 <Layers className="w-4 h-4" /> Estratigrafia
                </button>
             </div>
           </div>
@@ -116,18 +123,7 @@ export default function Energia() {
                  >
                    <InteractiveMap />
                  </motion.div>
-               ) : viewMode === "3d" ? (
-                 <motion.div 
-                   key="3d-sim-energy"
-                   initial={{ opacity: 0, scale: 1.02 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 0.98 }}
-                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                   className="w-full h-full"
-                 >
-                   <GeologicalSimulation />
-                 </motion.div>
-               ) : (
+               ) : viewMode === "extraction" ? (
                  <motion.div 
                    key="extraction-sim-energy"
                    initial={{ opacity: 0, y: 50 }}
@@ -137,6 +133,17 @@ export default function Energia() {
                    className="w-full h-full"
                  >
                    <OilExtractionSimulation />
+                 </motion.div>
+               ) : (
+                 <motion.div 
+                   key="stratigraphy-sim-energy"
+                   initial={{ opacity: 0, scale: 1.05 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 0.95 }}
+                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                   className="w-full h-full"
+                 >
+                   <StratigraphySimulation />
                  </motion.div>
                )}
              </AnimatePresence>
@@ -161,11 +168,11 @@ export default function Energia() {
                </button>
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-               <div className="aspect-[4/5] rounded-3xl overflow-hidden grayscale opacity-50">
-                 <img src="https://images.unsplash.com/photo-1516192535974-1378564f28c6?q=80&w=400" className="w-full h-full object-cover" />
+               <div className="aspect-[4/5] rounded-3xl overflow-hidden transition-all cursor-crosshair">
+                 <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?q=80&w=600" className="w-full h-full object-cover" alt="Oil Refinery" />
                </div>
-               <div className="aspect-[4/5] rounded-3xl overflow-hidden mt-8">
-                 <img src="https://images.unsplash.com/photo-1544253167-9387e0766a5e?q=80&w=400" className="w-full h-full object-cover" />
+               <div className="aspect-[4/5] rounded-3xl overflow-hidden mt-8 hover:scale-105 transition-transform duration-500">
+                 <img src="https://images.unsplash.com/photo-1545652932-8dfc0a2575f0?q=80&w=600" className="w-full h-full object-cover" alt="Modern Pipeline" />
                </div>
             </div>
         </motion.div>

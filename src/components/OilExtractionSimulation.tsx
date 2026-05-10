@@ -187,8 +187,8 @@ const Seabed = () => {
 
 export default function OilExtractionSimulation() {
   return (
-    <div className="w-full h-full bg-[#050505] relative group">
-      <Canvas shadows>
+    <div className="w-full h-full relative group">
+      <Canvas shadows gl={{ alpha: true }}>
         <PerspectiveCamera makeDefault position={[12, 5, 12]} fov={45} />
         <OrbitControls 
           enableZoom={true} 
@@ -197,9 +197,6 @@ export default function OilExtractionSimulation() {
           minDistance={8}
           maxDistance={25}
         />
-        
-        <color attach="background" args={['#050505']} />
-        <fog attach="fog" args={['#050505', 10, 40]} />
         
         <ambientLight intensity={0.1} />
         <spotLight position={[10, 20, 10]} angle={0.3} penumbra={1} intensity={1} castShadow />

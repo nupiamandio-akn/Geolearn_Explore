@@ -10,7 +10,7 @@ export default function Ciencias() {
         <div className="absolute inset-0 z-0">
           <img 
             src={ASSETS.EARTH_SCIENCE} 
-            className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+            className="w-full h-full object-cover opacity-40 hover:opacity-80 transition-all duration-1000"
             alt="Ciências da Terra"
             referrerPolicy="no-referrer"
           />

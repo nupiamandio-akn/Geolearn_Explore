@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Pickaxe, Search, Map as MapIcon, ArrowLeft, Triangle, Gem, Box, Globe } from "lucide-react";
+import { Pickaxe, Search, Map as MapIcon, ArrowLeft, Triangle, Gem, Globe, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ASSETS } from "../constants/images";
 import DiamondMap from "../components/DiamondMap";
-import GeologicalSimulation from "../components/GeologicalSimulation";
+import StratigraphySimulation from "../components/StratigraphySimulation";
 
 export default function Minerais() {
-  const [viewMode, setViewMode] = useState<"2d" | "3d">("2d");
+  const [viewMode, setViewMode] = useState<"2d" | "stratigraphy">("2d");
 
   return (
     <div className="pt-20 min-h-screen">
@@ -15,7 +15,7 @@ export default function Minerais() {
         <div className="absolute inset-0 z-0">
           <img 
             src={ASSETS.MINERAL_EXPLORATION} 
-            className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+            className="w-full h-full object-cover opacity-40 hover:opacity-80 transition-all duration-1000"
             alt="Exploração Mineral"
             referrerPolicy="no-referrer"
           />
@@ -111,7 +111,7 @@ export default function Minerais() {
                 HUB DE <span className="text-[#d4a017]">EXPLORAÇÃO</span>.
               </h2>
               <p className="text-white/60 leading-relaxed text-lg">
-                Selecione a visualização desejada para análise de dados. Alterne entre o mapeamento global de jazidas ou a simulação técnica de formações geológicas.
+                Selecione a visualização desejada para análise de dados. Alterne entre o mapeamento global de jazidas ou a análise detalhada de estratigrafia.
               </p>
             </div>
             
@@ -123,10 +123,10 @@ export default function Minerais() {
                  <Globe className="w-4 h-4" /> Vista 2D
                </button>
                <button 
-                onClick={() => setViewMode("3d")}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "3d" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
+                onClick={() => setViewMode("stratigraphy")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${viewMode === "stratigraphy" ? "bg-[#d4a017] text-[#0f0f0f]" : "text-white/40 hover:text-white"}`}
                >
-                 <Box className="w-4 h-4" /> Simulação 3D
+                 <Layers className="w-4 h-4" /> Estratigrafia
                </button>
             </div>
           </div>
@@ -146,14 +146,14 @@ export default function Minerais() {
                  </motion.div>
                ) : (
                  <motion.div 
-                   key="3d-sim"
-                   initial={{ opacity: 0, scale: 1.02 }}
+                   key="stratigraphy-sim"
+                   initial={{ opacity: 0, scale: 1.05 }}
                    animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 0.98 }}
+                   exit={{ opacity: 0, scale: 0.95 }}
                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                    className="w-full h-full"
                  >
-                   <GeologicalSimulation />
+                   <StratigraphySimulation />
                  </motion.div>
                )}
              </AnimatePresence>

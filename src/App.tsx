@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Navigation from "./components/Navigation";
@@ -8,7 +8,6 @@ import Ciencias from "./pages/Ciencias";
 import Minerais from "./pages/Minerais";
 import Energia from "./pages/Energia";
 import Start from "./pages/Start";
-import About from "./pages/About";
 
 // Helper to scroll to top on route change
 function ScrollToTop() {
@@ -59,7 +58,6 @@ function RoutesWithTransition() {
         <Route path="/minerais" element={<PageTransition><Minerais /></PageTransition>} />
         <Route path="/energia" element={<PageTransition><Energia /></PageTransition>} />
         <Route path="/comecar" element={<PageTransition><Start /></PageTransition>} />
-        <Route path="/sobre" element={<PageTransition><About /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
