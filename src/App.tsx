@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Navigation from "./components/Navigation";
